@@ -1,11 +1,63 @@
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 import logging
+import socket
 
 # Configurar logger
 logger = logging.getLogger(__name__)
+
+
+def send_html_email(subject, template_path, context, recipient_list):
+    """
+    Envía un correo electrónico HTML con manejo de errores mejorado.
+
+    Args:
+        subject (str): Asunto del correo
+        template_path (str): Ruta de la plantilla HTML
+        context (dict): Contexto para renderizar la plantilla
+        recipient_list (list): Lista de destinatarios
+
+    Returns:
+        bool: True si el correo se envió correctamente, False en caso de error
+    """
+    try:
+        # Renderizar contenido HTML
+        html_content = render_to_string(template_path, context)
+
+        # Crear mensaje de correo
+        email = EmailMultiAlternatives(
+            subject=subject,
+            body='',  # Texto plano alternativo
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=recipient_list,
+            reply_to=[settings.DEFAULT_FROM_EMAIL]
+        )
+
+        # Adjuntar contenido HTML
+        email.attach_alternative(html_content, "text/html")
+
+        # Configurar timeout para la conexión
+        socket.setdefaulttimeout(10)  # 10 segundos de timeout
+
+        # Enviar correo
+        result = email.send()
+
+        if result:
+            logger.info(f"Correo enviado exitosamente a {recipient_list}")
+            return True
+        else:
+            logger.warning(f"Fallo al enviar correo a {recipient_list}")
+            return False
+
+    except socket.timeout:
+        logger.error(f"Timeout al enviar correo a {recipient_list}")
+        return False
+    except Exception as e:
+        logger.error(f"Error al enviar correo: {str(e)}")
+        # Opcional: Puedes agregar más detalles de registro aquí
+        return False
 
 
 def send_verification_email(user):
@@ -14,34 +66,34 @@ def send_verification_email(user):
 
     Args:
         user: Instancia del modelo User
+
+    Returns:
+        bool: True si el correo se envió correctamente
     """
     try:
+        # Usar getattr para proporcionar un valor predeterminado
+        frontend_url = getattr(settings, 'FRONTEND_URL', 'http://localhost:3000')
+
         subject = _('Verifica tu cuenta de Restaurant App')
 
         # Construir enlace de verificación
-        verification_url = f"{settings.FRONTEND_URL}/verify-email?token={user.verification_token}"
+        verification_url = f"{frontend_url}/verify-email?token={user.verification_token}"
 
-        # Contenido del correo
-        message = render_to_string('emails/verification_email.html', {
-            'user': user,
-            'verification_url': verification_url,
-            'expiration_hours': 24,
-        })
-
-        # Enviar correo
-        send_mail(
-            subject,
-            '',  # Mensaje en texto plano (vacío porque usamos HTML)
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            html_message=message,
-            fail_silently=False,
+        # Enviar correo usando la nueva función
+        return send_html_email(
+            subject=subject,
+            template_path='emails/verification_email.html',
+            context={
+                'user': user,
+                'verification_url': verification_url,
+                'expiration_hours': 24,
+            },
+            recipient_list=[user.email]
         )
 
-        logger.info(f"Email de verificación enviado a {user.email}")
-
     except Exception as e:
-        logger.error(f"Error al enviar email de verificación a {user.email}: {str(e)}")
+        logger.error(f"Error en send_verification_email para {user.email}: {str(e)}")
+        return False
 
 
 def send_password_reset_email(user):
@@ -50,6 +102,9 @@ def send_password_reset_email(user):
 
     Args:
         user: Instancia del modelo User
+
+    Returns:
+        bool: True si el correo se envió correctamente
     """
     try:
         subject = _('Restablece tu contraseña - Restaurant App')
@@ -57,27 +112,21 @@ def send_password_reset_email(user):
         # Construir enlace de restablecimiento
         reset_url = f"{settings.FRONTEND_URL}/reset-password?token={user.password_reset_token}"
 
-        # Contenido del correo
-        message = render_to_string('emails/password_reset_email.html', {
-            'user': user,
-            'reset_url': reset_url,
-            'expiration_hours': 24,
-        })
-
-        # Enviar correo
-        send_mail(
-            subject,
-            '',  # Mensaje en texto plano (vacío porque usamos HTML)
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            html_message=message,
-            fail_silently=False,
+        # Enviar correo usando la nueva función
+        return send_html_email(
+            subject=subject,
+            template_path='emails/password_reset_email.html',
+            context={
+                'user': user,
+                'reset_url': reset_url,
+                'expiration_hours': 24,
+            },
+            recipient_list=[user.email]
         )
 
-        logger.info(f"Email de restablecimiento de contraseña enviado a {user.email}")
-
     except Exception as e:
-        logger.error(f"Error al enviar email de restablecimiento a {user.email}: {str(e)}")
+        logger.error(f"Error en send_password_reset_email para {user.email}: {str(e)}")
+        return False
 
 
 def send_order_confirmation_email(order):
@@ -86,36 +135,32 @@ def send_order_confirmation_email(order):
 
     Args:
         order: Instancia del modelo Order
+
+    Returns:
+        bool: True si el correo se envió correctamente
     """
     try:
-        user = order.user
         subject = _('Confirmación de Pedido #{} - Restaurant App').format(order.order_number)
 
         # Construir enlace de seguimiento de pedido
         order_url = f"{settings.FRONTEND_URL}/orders/{order.id}"
 
-        # Contenido del correo
-        message = render_to_string('emails/order_confirmation_email.html', {
-            'user': user,
-            'order': order,
-            'order_url': order_url,
-            'order_items': order.items.all(),
-        })
-
-        # Enviar correo
-        send_mail(
-            subject,
-            '',  # Mensaje en texto plano (vacío porque usamos HTML)
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            html_message=message,
-            fail_silently=False,
+        # Enviar correo usando la nueva función
+        return send_html_email(
+            subject=subject,
+            template_path='emails/order_confirmation_email.html',
+            context={
+                'user': order.user,
+                'order': order,
+                'order_url': order_url,
+                'order_items': order.items.all(),
+            },
+            recipient_list=[order.user.email]
         )
 
-        logger.info(f"Email de confirmación de pedido enviado a {user.email} para el pedido {order.id}")
-
     except Exception as e:
-        logger.error(f"Error al enviar email de confirmación de pedido a {user.email}: {str(e)}")
+        logger.error(f"Error en send_order_confirmation_email para {order.user.email}: {str(e)}")
+        return False
 
 
 def send_order_status_update_email(order):
@@ -124,29 +169,28 @@ def send_order_status_update_email(order):
 
     Args:
         order: Instancia del modelo Order
+
+    Returns:
+        bool: True si el correo se envió correctamente
     """
     try:
-        user = order.user
         subject = _('Actualización de Pedido #{} - Restaurant App').format(order.order_number)
 
-        # Contenido del correo
-        message = render_to_string('emails/order_status_update_email.html', {
-            'user': user,
-            'order': order,
-            'order_url': f"{settings.FRONTEND_URL}/orders/{order.id}",
-        })
+        # Construir enlace de seguimiento de pedido
+        order_url = f"{settings.FRONTEND_URL}/orders/{order.id}"
 
-        # Enviar correo
-        send_mail(
-            subject,
-            '',  # Mensaje en texto plano (vacío porque usamos HTML)
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            html_message=message,
-            fail_silently=False,
+        # Enviar correo usando la nueva función
+        return send_html_email(
+            subject=subject,
+            template_path='emails/order_status_update_email.html',
+            context={
+                'user': order.user,
+                'order': order,
+                'order_url': order_url,
+            },
+            recipient_list=[order.user.email]
         )
 
-        logger.info(f"Email de actualización de estado de pedido enviado a {user.email} para el pedido {order.id}")
-
     except Exception as e:
-        logger.error(f"Error al enviar email de actualización de estado de pedido a {user.email}: {str(e)}")
+        logger.error(f"Error en send_order_status_update_email para {order.user.email}: {str(e)}")
+        return False

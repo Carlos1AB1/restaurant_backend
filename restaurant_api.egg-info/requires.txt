@@ -7,7 +7,7 @@ mysqlclient==2.2.1
 Pillow==10.3.0
 python-dotenv==1.0.1
 drf-yasg==1.20.0
-sendgrid==6.10.0
+
 stripe==7.13.0
 elasticsearch-dsl==8.11.0
 elasticsearch==8.11.0

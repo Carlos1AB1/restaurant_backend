@@ -67,3 +67,45 @@ INFO 2025-04-04 22:46:38,904 basehttp "GET /static/drf-yasg/swagger-ui-dist/swag
 INFO 2025-04-04 22:46:38,940 basehttp "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 322863
 INFO 2025-04-04 22:46:39,348 basehttp "GET /swagger/?format=openapi HTTP/1.1" 200 51075
 INFO 2025-04-04 22:46:40,232 basehttp "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 322863
+INFO 2025-04-05 15:25:21,321 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-05 15:25:31,885 log Not Found: /
+WARNING 2025-04-05 15:25:31,886 basehttp "GET / HTTP/1.1" 404 4518
+WARNING 2025-04-05 15:25:32,409 log Not Found: /favicon.ico
+WARNING 2025-04-05 15:25:32,409 basehttp "GET /favicon.ico HTTP/1.1" 404 4569
+INFO 2025-04-05 15:52:06,951 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 15:52:08,740 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 15:54:56,266 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-05 15:55:04,853 log Bad Request: /api/v1/users/register/
+WARNING 2025-04-05 15:55:04,854 basehttp "POST /api/v1/users/register/ HTTP/1.1" 400 128
+WARNING 2025-04-05 15:55:39,803 log Bad Request: /api/v1/users/register/
+WARNING 2025-04-05 15:55:39,804 basehttp "POST /api/v1/users/register/ HTTP/1.1" 400 65
+INFO 2025-04-05 15:55:59,921 basehttp "POST /api/v1/users/register/ HTTP/1.1" 201 73
+INFO 2025-04-05 16:00:30,568 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 16:00:32,404 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:01:49,308 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:02:06,619 basehttp "POST /api/v1/users/register/ HTTP/1.1" 201 73
+INFO 2025-04-05 16:05:07,936 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\notifications\services.py changed, reloading.
+INFO 2025-04-05 16:05:09,652 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:05:44,227 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 16:05:46,030 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:06:38,188 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 16:06:39,813 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:10:00,964 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 16:10:02,882 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:10:43,506 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\notifications\services.py changed, reloading.
+INFO 2025-04-05 16:11:11,360 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-05 16:11:21,237 log Bad Request: /api/v1/users/register/
+WARNING 2025-04-05 16:11:21,237 basehttp "POST /api/v1/users/register/ HTTP/1.1" 400 128
+WARNING 2025-04-05 16:11:43,339 log Not Found: /api/v1/users/addresses/archudeluxe02@gmail.com/
+WARNING 2025-04-05 16:11:43,339 basehttp "DELETE /api/v1/users/addresses/archudeluxe02@gmail.com/ HTTP/1.1" 404 7065
+INFO 2025-04-05 16:12:08,604 basehttp "POST /api/v1/users/register/ HTTP/1.1" 201 73
+INFO 2025-04-05 16:13:44,542 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 16:13:46,162 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-05 16:13:49,473 log Bad Request: /api/v1/users/register/
+WARNING 2025-04-05 16:13:49,473 basehttp "POST /api/v1/users/register/ HTTP/1.1" 400 128
+INFO 2025-04-05 16:13:59,707 basehttp "POST /api/v1/users/register/ HTTP/1.1" 201 73
+INFO 2025-04-05 16:16:26,608 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 16:16:28,250 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:16:59,668 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
+INFO 2025-04-05 16:17:01,403 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:18:03,773 autoreload Watching for file changes with StatReloader
