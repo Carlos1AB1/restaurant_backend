@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pedido #{{ order.order_number }} - Restaurant App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+        .order-details {
+            margin: 20px 0;
+        }
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .order-table th, .order-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .order-table th {
+            background-color: #f2f2f2;
+        }
+        .order-summary {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <h1>Restaurant App</h1>
+    </div>
+
+    <div class="content">
+        <h2>¡Gracias por tu pedido!</h2>
+
+        <p>Hola {{ user.first_name|default:user.username }},</p>
+
+        <p>Tu pedido #{{ order.order_number }} ha sido recibido y está siendo procesado. A continuación, te mostramos los detalles:</p>
+
+        <div class="order-details">
+            <h3>Detalles del Pedido</h3>
+            <p><strong>Número de pedido:</strong> {{ order.order_number }}</p>
+            <p><strong>Fecha:</strong> {{ order.created_at|date:"d/m/Y H:i" }}</p>
+            <p><strong>Estado:</strong> {{ order.get_status_display }}</p>
+            <p><strong>Método de entrega:</strong> {{ order.get_delivery_method_display }}</p>
+            {% if order.delivery_method == 'DELIVERY' %}
+            <p><strong>Dirección de entrega:</strong><br>
+               {{ order.delivery_address.address_line1 }}<br>
+               {% if order.delivery_address.address_line2 %}{{ order.delivery_address.address_line2 }}<br>{% endif %}
+               {{ order.delivery_address.city }}, {{ order.delivery_address.state }}<br>
+               {{ order.delivery_address.postal_code }}, {{ order.delivery_address.country }}<br>
+               Tel: {{ order.delivery_address.phone_number }}
+            </p>
+            {% endif %}
+            {% if order.expected_delivery_time %}
+            <p><strong>Tiempo estimado de entrega:</strong> {{ order.expected_delivery_time|date:"d/m/Y H:i" }}</p>
+            {% endif %}
+        </div>
+
+        <div class="order-items">
+            <h3>Artículos del Pedido</h3>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_items %}
+                    <tr>
+                        <td>{{ item.dish_name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.unit_price }}</td>
+                        <td>${{ item.total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="order-summary">
+                <p><strong>Subtotal:</strong> ${{ order.subtotal }}</p>
+                <p><strong>Impuestos:</strong> ${{ order.tax }}</p>
+                {% if order.delivery_fee > 0 %}
+                <p><strong>Costo de entrega:</strong> ${{ order.delivery_fee }}</p>
+                {% endif %}
+                <p><strong>Total:</strong> ${{ order.total }}</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{{ order_url }}" class="button">Ver mi pedido</a>
+        </div>
+
+        <p>Si tienes alguna pregunta sobre tu pedido, no dudes en contactarnos.</p>
+
+        <p>¡Gracias por elegir Restaurant App!</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; {% now "Y" %} Restaurant App. Todos los derechos reservados.</p>
+        <p>Dirección del Restaurante, Ciudad, País</p>
+        <p>Tel: +XX XXX XXX XXXX | Email: contacto@restaurant.com</p>
+    </div>
+</body>
+</html>

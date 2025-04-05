@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualización de Pedido #{{ order.order_number }} - Restaurant App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+        .status {
+            padding: 10px;
+            background-color: #e67e22;
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .status.delivered {
+            background-color: #27ae60;
+        }
+        .status.cancelled {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <h1>Restaurant App</h1>
+    </div>
+
+    <div class="content">
+        <h2>Actualización de tu Pedido</h2>
+
+        <p>Hola {{ user.first_name|default:user.username }},</p>
+
+        <p>Queremos informarte que el estado de tu pedido #{{ order.order_number }} ha sido actualizado:</p>
+
+        <div class="status{% if order.status == 'DELIVERED' %} delivered{% elif order.status == 'CANCELLED' %} cancelled{% endif %}">
+            <p>Estado actual: {{ order.get_status_display }}</p>
+            {% if order.expected_delivery_time and order.status != 'DELIVERED' and order.status != 'COMPLETED' and order.status != 'CANCELLED' %}
+            <p>Tiempo estimado de entrega: {{ order.expected_delivery_time|date:"d/m/Y H:i" }}</p>
+            {% endif %}
+        </div>
+
+        {% if order.status == 'PREPARING' %}
+        <p>¡Tu pedido está siendo preparado! Nuestro equipo está trabajando para tener listo tu delicioso pedido lo antes posible.</p>
+        {% elif order.status == 'READY' %}
+        <p>¡Tu pedido está listo! Puedes pasar a recogerlo en nuestro local.</p>
+        {% elif order.status == 'OUT_FOR_DELIVERY' %}
+        <p>¡Tu pedido está en camino! Nuestro repartidor lo entregará en la dirección indicada en breve.</p>
+        {% elif order.status == 'DELIVERED' %}
+        <p>¡Tu pedido ha sido entregado! Esperamos que lo disfrutes. No olvides dejarnos tu opinión sobre los platos.</p>
+        {% elif order.status == 'COMPLETED' %}
+        <p>¡Tu pedido ha sido completado! Gracias por elegir Restaurant App. Esperamos verte pronto de nuevo.</p>
+        {% elif order.status == 'CANCELLED' %}
+        <p>Lo sentimos, tu pedido ha sido cancelado. Si tienes alguna duda o deseas realizar un nuevo pedido, no dudes en contactarnos.</p>
+        {% endif %}
+
+        <div style="text-align: center;">
+            <a href="{{ order_url }}" class="button">Ver detalles de mi pedido</a>
+        </div>
+
+        <p>Si tienes alguna pregunta sobre tu pedido, no dudes en contactarnos.</p>
+
+        <p>¡Gracias por elegir Restaurant App!</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; {% now "Y" %} Restaurant App. Todos los derechos reservados.</p>
+        <p>Dirección del Restaurante, Ciudad, País</p>
+        <p>Tel: +XX XXX XXX XXXX | Email: contacto@restaurant.com</p>
+    </div>
+</body>
+</html>

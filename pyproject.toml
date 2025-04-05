@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "restaurant-api"
+version = "1.0.0"
+description = "Backend para sistema de restaurante con Django REST Framework"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Tu Nombre", email = "tu@email.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+]
+
+dependencies = [
+    # Core Django
+    "Django==4.2.10",
+    "djangorestframework==3.14.0",
+    "djangorestframework-simplejwt==5.3.1",
+    "django-cors-headers==4.3.1",
+    "whitenoise==6.6.0",
+
+    # Database
+    "mysqlclient==2.2.1",
+
+    # Imágenes y archivos - versión actualizada
+    "Pillow==10.4.0",
+
+    # Configuración
+    "python-dotenv==1.0.1",
+
+    # Documentación API
+    "drf-yasg==1.20.0",
+
+    # Servicios externos
+    "sendgrid==6.10.0",
+    "stripe==7.13.0",
+
+    # Búsqueda
+    "elasticsearch-dsl==8.11.0",
+    "elasticsearch==8.11.0",
+
+    # Tareas asíncronas
+    "celery==5.3.6",
+    "redis==5.0.1",
+
+    # Servidor de producción
+    "gunicorn==21.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black==23.3.0",
+    "flake8==6.0.0",
+    "pytest==7.3.1",
+    "pytest-django==4.5.2",
+    "factory-boy==3.2.1",
+    "coverage==7.2.3",
+]
+
+chatbot = [
+    "rasa==3.6.16",
+]
+
+nlp = [
+    "spacy==3.7.2",
+    "transformers==4.36.2",
+]
+
+[tool.setuptools]
+packages = ["restaurant_api", "users", "menu", "orders", "payments", "chatbot", "search", "notifications"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "restaurant_api.settings"
+python_files = ["test_*.py", "*_test.py"]
+testpaths = ["tests"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
