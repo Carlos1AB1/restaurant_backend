@@ -1,0 +1,41 @@
+Metadata-Version: 2.4
+Name: restaurant-api
+Version: 1.0.0
+Summary: Backend para sistema de restaurante con Django REST Framework
+Author-email: Tu Nombre <tu@email.com>
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4.2
+Requires-Python: <3.12,>=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: Django==4.2.10
+Requires-Dist: djangorestframework==3.14.0
+Requires-Dist: djangorestframework-simplejwt==5.3.1
+Requires-Dist: django-cors-headers==4.3.1
+Requires-Dist: whitenoise==6.6.0
+Requires-Dist: mysqlclient==2.2.1
+Requires-Dist: Pillow==10.3.0
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: drf-yasg==1.20.0
+Requires-Dist: sendgrid==6.10.0
+Requires-Dist: stripe==7.13.0
+Requires-Dist: elasticsearch-dsl==8.11.0
+Requires-Dist: elasticsearch==8.11.0
+Requires-Dist: celery==5.3.6
+Requires-Dist: redis==5.0.1
+Requires-Dist: gunicorn==21.2.0
+Provides-Extra: dev
+Requires-Dist: black==23.3.0; extra == "dev"
+Requires-Dist: flake8==6.0.0; extra == "dev"
+Requires-Dist: pytest==7.3.1; extra == "dev"
+Requires-Dist: pytest-django==4.5.2; extra == "dev"
+Requires-Dist: factory-boy==3.2.1; extra == "dev"
+Requires-Dist: coverage==7.2.3; extra == "dev"
+Provides-Extra: chatbot
+Requires-Dist: rasa==3.6.16; extra == "chatbot"
+Provides-Extra: nlp
+Requires-Dist: spacy==3.7.2; extra == "nlp"
+Requires-Dist: transformers==4.36.2; extra == "nlp"

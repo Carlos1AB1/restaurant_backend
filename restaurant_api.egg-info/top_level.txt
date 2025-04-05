@@ -1,0 +1,8 @@
+chatbot
+menu
+notifications
+orders
+payments
+restaurant_api
+search
+users

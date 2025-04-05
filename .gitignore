@@ -1,0 +1,22 @@
+# Archivos de entorno
+.env
+*.env
+*.env.*
+!.env.example
+
+# Archivos de entorno específicos
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Directorios de entorno virtual de Python
+venv/
+env/
+.venv/
+.env/
+
+# Caches de Python
+__pycache__/
+*.py[cod]
+*$py.class

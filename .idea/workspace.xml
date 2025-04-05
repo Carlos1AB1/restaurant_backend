@@ -4,38 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35b11866-2247-485c-9cef-c93d48dac1ca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/restaurant_api.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chatbot/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chatbot/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chatbot/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu/signals.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notifications/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notifications/tasks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/restaurant_api/celery.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/search/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/search/tasks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/search/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/emails/order_confirmation_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/emails/order_status_update_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/emails/password_reset_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/emails/verifitacion_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
+    <list default="true" id="35b11866-2247-485c-9cef-c93d48dac1ca" name="Changes" comment="Desarrollo del proyecto">
+      <change afterPath="$PROJECT_DIR$/restaurant_api/swagger.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -90,6 +63,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ByArc\PycharmProjects\restaurant_api" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ByArc\PycharmProjects\restaurant_api\templates\emails" />
     </key>
   </component>
   <component name="RunManager">
@@ -137,11 +113,24 @@
       <workItem from="1743814773199" duration="565000" />
       <workItem from="1743815352621" duration="1575000" />
       <workItem from="1743817507244" duration="2922000" />
-      <workItem from="1743821412285" duration="325000" />
+      <workItem from="1743821412285" duration="2785000" />
     </task>
+    <task id="LOCAL-00001" summary="Desarrollo del proyecto">
+      <option name="closed" value="true" />
+      <created>1743821905711</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743821905712</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Desarrollo del proyecto" />
+    <option name="LAST_COMMIT_MESSAGE" value="Desarrollo del proyecto" />
   </component>
 </project>

@@ -1,0 +1,69 @@
+INFO 2025-04-04 22:44:08,265 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-04 22:44:12,400 log Not Found: /
+WARNING 2025-04-04 22:44:12,400 basehttp "GET / HTTP/1.1" 404 4518
+WARNING 2025-04-04 22:44:12,957 log Not Found: /favicon.ico
+WARNING 2025-04-04 22:44:12,958 basehttp "GET /favicon.ico HTTP/1.1" 404 4569
+INFO 2025-04-04 22:44:19,755 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-04-04 22:44:19,871 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4226
+INFO 2025-04-04 22:44:20,046 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-04-04 22:44:20,057 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-04-04 22:44:20,059 basehttp "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-04-04 22:44:20,060 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-04-04 22:44:20,061 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-04-04 22:44:20,066 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-04-04 22:44:20,070 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-04-04 22:44:20,077 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-04-04 22:44:20,085 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-04-04 22:44:38,797 basehttp "POST /api/v1/users/register/ HTTP/1.1" 201 73
+INFO 2025-04-04 22:45:55,160 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-04 22:45:57,267 log Not Found: /
+WARNING 2025-04-04 22:45:57,268 basehttp "GET / HTTP/1.1" 404 4518
+INFO 2025-04-04 22:46:00,728 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4226
+INFO 2025-04-04 22:46:05,309 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-04-04 22:46:05,340 basehttp "GET /admin/ HTTP/1.1" 200 5371
+INFO 2025-04-04 22:46:05,410 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-04-04 22:46:05,448 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-04-04 22:46:05,448 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-04-04 22:46:12,141 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 7196
+INFO 2025-04-04 22:46:12,175 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-04-04 22:46:12,188 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-04-04 22:46:12,194 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-04-04 22:46:12,195 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-04-04 22:46:12,195 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2025-04-04 22:46:12,201 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-04-04 22:46:12,212 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-04-04 22:46:12,212 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 8691
+INFO 2025-04-04 22:46:12,216 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-04-04 22:46:12,221 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-04-04 22:46:12,224 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2025-04-04 22:46:12,229 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-04-04 22:46:12,229 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-04-04 22:46:12,229 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-04-04 22:46:12,231 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-04-04 22:46:12,233 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 8691
+INFO 2025-04-04 22:46:12,235 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-04-04 22:46:12,288 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-04-04 22:46:12,289 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-04-04 22:46:12,312 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-04-04 22:46:12,335 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-04-04 22:46:12,337 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-04-04 22:46:12,339 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-04-04 22:46:13,570 basehttp "GET /admin/ HTTP/1.1" 200 5371
+INFO 2025-04-04 22:46:15,535 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-04-04 22:46:15,547 basehttp "GET /admin/ HTTP/1.1" 200 5371
+WARNING 2025-04-04 22:46:26,531 log Not Found: /
+WARNING 2025-04-04 22:46:26,531 basehttp "GET / HTTP/1.1" 404 4518
+INFO 2025-04-04 22:46:38,812 basehttp "GET /swagger/ HTTP/1.1" 200 2162
+INFO 2025-04-04 22:46:38,851 basehttp "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+INFO 2025-04-04 22:46:38,858 basehttp "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 145206
+INFO 2025-04-04 22:46:38,870 basehttp "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+INFO 2025-04-04 22:46:38,875 basehttp "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+INFO 2025-04-04 22:46:38,875 basehttp "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14964
+INFO 2025-04-04 22:46:38,884 basehttp "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1046583
+INFO 2025-04-04 22:46:38,896 basehttp "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+INFO 2025-04-04 22:46:38,897 basehttp "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14964
+INFO 2025-04-04 22:46:38,900 basehttp "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+INFO 2025-04-04 22:46:38,904 basehttp "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1046583
+INFO 2025-04-04 22:46:38,940 basehttp "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 322863
+INFO 2025-04-04 22:46:39,348 basehttp "GET /swagger/?format=openapi HTTP/1.1" 200 51075
+INFO 2025-04-04 22:46:40,232 basehttp "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 322863
