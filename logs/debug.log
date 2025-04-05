@@ -109,3 +109,12 @@ INFO 2025-04-05 16:16:28,250 autoreload Watching for file changes with StatReloa
 INFO 2025-04-05 16:16:59,668 autoreload C:\Users\ByArc\PycharmProjects\restaurant_api\restaurant_api\settings.py changed, reloading.
 INFO 2025-04-05 16:17:01,403 autoreload Watching for file changes with StatReloader
 INFO 2025-04-05 16:18:03,773 autoreload Watching for file changes with StatReloader
+INFO 2025-04-05 16:18:15,780 basehttp "POST /api/v1/users/register/ HTTP/1.1" 201 73
+INFO 2025-04-05 16:18:53,119 basehttp "POST /api/v1/users/register/ HTTP/1.1" 201 73
+INFO 2025-04-05 16:20:09,809 basehttp "POST /api/v1/users/verify-email/ HTTP/1.1" 200 625
+INFO 2025-04-05 16:20:51,729 basehttp "POST /api/v1/users/login/ HTTP/1.1" 200 690
+INFO 2025-04-05 16:21:04,823 basehttp "POST /api/v1/users/token/refresh/ HTTP/1.1" 200 290
+INFO 2025-04-05 16:21:16,667 basehttp "GET /api/v1/users/profile/ HTTP/1.1" 200 211
+INFO 2025-04-05 16:21:35,341 basehttp "GET /api/v1/menu/categories/ HTTP/1.1" 200 52
+WARNING 2025-04-05 16:24:09,276 log Forbidden: /api/v1/menu/categories/
+WARNING 2025-04-05 16:24:09,277 basehttp "POST /api/v1/menu/categories/ HTTP/1.1" 403 63
