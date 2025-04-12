@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Tu pedido está en camino! - {{ restaurant_name }}</title>
+    <style>
+        /* Estilos básicos para compatibilidad con clientes de correo - Similares a order_delivered */
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #FFA000; /* Color primario (ajusta a tu paleta) */
+            margin: 0;
+        }
+        .content p {
+            margin-bottom: 15px;
+        }
+        .order-summary {
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .order-summary h3 {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        /* Opcional: Estilo para destacar información clave */
+        .highlight {
+            background-color: #FFF9C4; /* Amarillo muy claro */
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FFC107; /* Amarillo más oscuro */
+        }
+        strong {
+            color: #388E3C; /* Verde secundario (ajusta) */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- Opcional: Logo -->
+            <!-- <img src="URL_DE_TU_LOGO_ONLINE" alt="{{ restaurant_name }}" style="max-width: 150px; margin-bottom: 10px;"> -->
+            <h1>¡Tu pedido está en camino! 🚚</h1>
+        </div>
+
+        <div class="content">
+            <p>Hola {{ user.first_name|default:user.email }},</p>
+
+            <p>¡Prepárate! Tu pedido número <strong>#{{ order.order_number }}</strong> de {{ restaurant_name }} ha salido de nuestro restaurante y está de camino a tu dirección.</p>
+
+            <div class="highlight">
+                <p style="margin: 0;">Estimamos que llegará pronto. ¡Ten tu apetito listo!</p>
+                <!-- Opcional: Si tuvieras seguimiento en tiempo real, podrías añadir un enlace -->
+                <!-- <p style="margin-top: 10px;"><a href="URL_SEGUIMIENTO" target="_blank">Sigue tu pedido aquí</a></p> -->
+            </div>
+
+            <p>El repartidor se dirige a:</p>
+            <p><strong>{{ order.delivery_address }}</strong></p>
+
+            {% if order.assigned_to %}
+                <!-- Opcional: Mostrar nombre del repartidor si lo deseas y la política lo permite -->
+                <!-- <p>Tu repartidor asignado es {{ order.assigned_to.first_name|default:'nuestro equipo' }}.</p> -->
+            {% endif %}
+
+            <p>Asegúrate de estar disponible para recibirlo. Si necesitas contactar con nosotros urgentemente sobre la entrega, puedes llamar al [Tu Número de Teléfono del Restaurante].</p>
+
+        </div>
+
+        <div class="order-summary">
+            <h3>Recordatorio del Pedido</h3>
+            <p><strong>Número de Pedido:</strong> #{{ order.order_number }}</p>
+            <p><strong>Fecha del Pedido:</strong> {{ order.created_at|date:"d/m/Y H:i" }}</p>
+            <p><strong>Total:</strong> {{ order.total_price }} €</p> <!-- Ajusta moneda -->
+            <!-- Puedes listar los items si quieres, pero puede hacer el email largo -->
+            <!--
+            <p><strong>Items:</strong></p>
+            <ul>
+                {% for item in order.items.all %}
+                    <li>{{ item.quantity }} x {{ item.product_name }}</li>
+                {% endfor %}
+            </ul>
+            -->
+        </div>
+
+        <div class="footer">
+            <p>Gracias por elegir {{ restaurant_name }}. ¡Estamos deseando que disfrutes de tu comida!</p>
+            <!-- Enlaces a web/redes sociales -->
+        </div>
+    </div>
+</body>
+</html>

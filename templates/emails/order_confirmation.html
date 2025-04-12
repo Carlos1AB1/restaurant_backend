@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmación de Pedido</title>
+</head>
+<body>
+    <h1>¡Gracias por tu pedido, {{ user.first_name|default:user.email }}!</h1>
+    <p>Hemos recibido tu pedido número <strong>#{{ order.order_number }}</strong> y ya lo estamos preparando.</p>
+
+    {% if order.is_scheduled %}
+    <p>Este es un pedido programado para ser entregado aproximadamente el: <strong>{{ order.scheduled_datetime|date:"d/m/Y H:i" }}</strong>.</p>
+    {% endif %}
+
+    <h2>Resumen del Pedido:</h2>
+    <ul>
+        {% for item in order.items.all %}
+            <li>{{ item.quantity }} x {{ item.product_name }} - {{ item.price }} € (Subtotal: {{ item.get_total_price }} €)</li>
+        {% endfor %}
+    </ul>
+    <p><strong>Total: {{ order.total_price }} €</strong></p>
+
+    <h2>Dirección de Entrega:</h2>
+    <p>{{ order.delivery_address }}</p>
+    <p>Teléfono: {{ order.phone_number }}</p>
+
+    {% if order.notes %}
+    <h2>Notas Adicionales:</h2>
+    <p>{{ order.notes }}</p>
+    {% endif %}
+
+    <p>Puedes ver el estado de tu pedido en tu historial de compras.</p>
+    <p>Gracias por elegir {{ restaurant_name }}.</p>
+</body>
+</html>
