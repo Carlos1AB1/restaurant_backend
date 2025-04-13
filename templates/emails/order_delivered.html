@@ -1,116 +1,260 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedido Entregado - {{ restaurant_name }}</title>
+    <title>Pedido Entregado - Foodie</title>
     <style>
-        /* Estilos básicos para compatibilidad con clientes de correo */
+        /* Estilos base */
         body {
-            font-family: sans-serif;
+            font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
+            color: #333333;
+            background-color: #F9F7F3;
             margin: 0;
             padding: 0;
         }
+
+        h1, h2, h3 {
+            font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive;
+            color: #FF6B6B;
+        }
+
+        /* Contenedor principal */
         .container {
             max-width: 600px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            padding: 20px;
         }
-        .header {
+
+        /* Header del email */
+        .email-header {
             text-align: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            max-width: 150px;
             margin-bottom: 20px;
         }
-        .header h1 {
-            color: #388E3C; /* Verde secundario (ajusta a tu paleta) */
-            margin: 0;
+
+        /* Tarjeta principal */
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            border: 3px solid #333333;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
         }
-        .content p {
-            margin-bottom: 15px;
+
+        /* Sección de estado - Color de éxito (entregado) */
+        .status-badge {
+            background-color: #6BCD6B; /* Color de éxito */
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            border: 2px solid #333333;
+            margin-bottom: 20px;
         }
+
+        /* Sección de resumen */
         .order-summary {
-            margin-top: 25px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+            margin: 20px 0;
+            background-color: #F9F7F3;
+            border-radius: 8px;
+            padding: 20px;
         }
-        .order-summary h3 {
+
+        .summary-title {
+            font-size: 20px;
+            border-bottom: 2px solid #E0E0E0;
+            padding-bottom: 10px;
             margin-bottom: 15px;
-            color: #555;
+            color: #333333;
         }
-        .footer {
-            margin-top: 30px;
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-label {
+            font-weight: bold;
+            color: #666666;
+        }
+
+        .summary-value {
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+
+        /* Sección de valoración */
+        .rating-section {
             text-align: center;
-            font-size: 0.9em;
-            color: #777;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+            margin: 30px 0;
         }
+
+        /* Botones */
         .button {
             display: inline-block;
-            background-color: #FFA000; /* Color primario (ajusta a tu paleta) */
-            color: #ffffff;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
+            background-color: #FF6B6B;
+            color: white !important; /* Importante para clientes de correo */
             font-weight: bold;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 20px 0;
+            border-radius: 50px;
+            border: 3px solid #333333;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive;
+            text-align: center;
         }
+
         .button:hover {
-            background-color: #FF6F00; /* Primario oscuro */
+            background-color: #FF3B3B;
         }
-        strong {
-            color: #4CAF50; /* Verde secundario claro */
+
+        /* Imagen de comida entregada */
+        .delivery-image {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .delivery-image img {
+            max-width: 200px;
+            border-radius: 12px;
+            border: 3px solid #333333;
+        }
+
+        /* Estrellas de valoración */
+        .stars-container {
+            margin: 15px 0;
+            font-size: 30px;
+            letter-spacing: 5px;
+        }
+
+        .star {
+            color: #FFD166; /* Color acento para estrellas */
+        }
+
+        /* Footer */
+        .email-footer {
+            text-align: center;
+            padding: 20px;
+            color: #666666;
+            font-size: 14px;
+        }
+
+        /* Separador */
+        .divider {
+            height: 2px;
+            background-color: #E0E0E0;
+            margin: 25px 0;
+            border-radius: 2px;
+        }
+
+        /* Media query para móviles */
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .summary-row {
+                flex-direction: column;
+            }
+
+            .summary-value {
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <!-- Opcional: Puedes poner tu logo aquí -->
-            <!-- <img src="URL_DE_TU_LOGO_ONLINE" alt="{{ restaurant_name }}" style="max-width: 150px; margin-bottom: 10px;"> -->
-            <h1>¡Tu pedido ha sido entregado!</h1>
+        <div class="email-header">
+            <img src="https://via.placeholder.com/150x50.png?text=Foodie+Logo" alt="Foodie" class="logo">
+            <h1>¡Tu Pedido Ha Sido Entregado!</h1>
         </div>
 
-        <div class="content">
-            <p>Hola {{ user.first_name|default:user.email }},</p>
+        <div class="card">
+            <div class="status-badge">
+                ¡Entrega Exitosa!
+            </div>
 
-            <p>¡Buenas noticias! Tu pedido número <strong>#{{ order.order_number }}</strong> de {{ restaurant_name }} ha sido marcado como entregado.</p>
+            <p>Hola <strong>{{ user.first_name|default:user.email }}</strong>,</p>
+            <p>¡Buenas noticias! Tu pedido número <strong>#{{ order.order_number }}</strong> ha sido entregado con éxito.</p>
 
             <p>Esperamos que disfrutes de tu comida. ¡Buen provecho!</p>
 
-            <!-- Opcional: Enlace para dejar reseña -->
-            <p>¿Te ha gustado tu pedido? Nos encantaría conocer tu opinión. Puedes dejar una reseña sobre los productos que pediste.</p>
-            <div style="text-align: center;">
-                 <!-- Necesitarás construir esta URL en tu backend o frontend -->
-                 <!-- Ejemplo: Podría llevar a la página del menú o a la página de historial de pedidos -->
-                <a href="{{ frontend_url|default:'TU_URL_FRONTEND' }}/order-history" class="button" target="_blank" style="color: #ffffff;">Dejar una Reseña</a>
-                <!-- Nota: Ajusta 'frontend_url' pasándola desde la señal o settings -->
-                <!--      y la ruta '/order-history' a donde sea más apropiado. -->
+            <div class="delivery-image">
+                <img src="https://via.placeholder.com/200x150.png?text=¡Buen+Provecho!" alt="¡Buen Provecho!">
             </div>
 
+            <div class="order-summary">
+                <h2 class="summary-title">Resumen del Pedido</h2>
+
+                <div class="summary-row">
+                    <div class="summary-label">Número de Pedido:</div>
+                    <div class="summary-value">#{{ order.order_number }}</div>
+                </div>
+
+                <div class="summary-row">
+                    <div class="summary-label">Fecha del Pedido:</div>
+                    <div class="summary-value">{{ order.created_at|date:"d/m/Y H:i" }}</div>
+                </div>
+
+                <div class="summary-row">
+                    <div class="summary-label">Total Pagado:</div>
+                    <div class="summary-value">{{ order.total_price }} €</div>
+                </div>
+
+                <div class="summary-row">
+                    <div class="summary-label">Dirección de Entrega:</div>
+                    <div class="summary-value">{{ order.delivery_address }}</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="rating-section">
+                <h2>¿Te ha gustado tu pedido?</h2>
+                <p>Nos encantaría conocer tu opinión. ¡Valora tu experiencia!</p>
+
+                <div class="stars-container">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+
+                <a href="{{ frontend_url|default:'#' }}/orders/{{ order.id }}/review" class="button">
+                    Dejar una Reseña
+                </a>
+            </div>
         </div>
 
-        <div class="order-summary">
-            <h3>Resumen del Pedido</h3>
-            <p><strong>Número de Pedido:</strong> #{{ order.order_number }}</p>
-            <p><strong>Fecha del Pedido:</strong> {{ order.created_at|date:"d/m/Y H:i" }}</p>
-            <p><strong>Total Pagado:</strong> {{ order.total_price }} €</p> <!-- Ajusta el símbolo de moneda si es necesario -->
-             <p><strong>Entregado a:</strong> {{ order.delivery_address }}</p>
-            <!-- Puedes añadir más detalles si lo deseas -->
-        </div>
-
-        <div class="footer">
+        <div class="email-footer">
             <p>Gracias por confiar en {{ restaurant_name }}.</p>
             <p>Si tienes alguna pregunta sobre tu pedido, no dudes en contactarnos.</p>
-            <!-- Puedes añadir enlaces a redes sociales o a la web -->
+            <p>&copy; {{ current_year|default:'2025' }} Foodie. Todos los derechos reservados.</p>
         </div>
     </div>
 </body>
