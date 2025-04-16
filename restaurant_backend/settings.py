@@ -6,6 +6,10 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Cargar variables de entorno desde .env
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
@@ -16,10 +20,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-change-me')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_atlantis.apps.AdminAtlantisConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,7 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-    'drf_yasg', # Para Swagger/Redoc
+    'drf_yasg',  # Para Swagger/Redoc
 
     # Mis aplicaciones (usando la estructura apps/)
     'apps.menu.permissions',
@@ -48,7 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # CORS Middleware
+    'corsheaders.middleware.CorsMiddleware',  # CORS Middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -58,10 +62,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'restaurant_backend.urls'
 
+LOGIN_REDIRECT_URL = '/'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Directorio opcional para templates de email, etc.
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Directorio opcional para templates de email, etc.
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +83,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'restaurant_backend.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -89,11 +95,10 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'", # Recomendado para MySQL
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  # Recomendado para MySQL
         },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -119,11 +124,10 @@ AUTH_USER_MODEL = 'users.User'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'es-es' # Español España como ejemplo
-TIME_ZONE = 'UTC' # O tu zona horaria, ej: 'Europe/Madrid'
+LANGUAGE_CODE = 'es-es'  # Español España como ejemplo
+TIME_ZONE = 'UTC'  # O tu zona horaria, ej: 'Europe/Madrid'
 USE_I18N = True
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -132,8 +136,7 @@ STATIC_URL = 'static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Para 'collectstatic' en producción
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Directorio para imágenes de productos, etc.
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directorio para imágenes de productos, etc.
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -152,7 +155,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10 # Número de elementos por página
+    'PAGE_SIZE': 10  # Número de elementos por página
 }
 
 # Simple JWT Settings
@@ -184,27 +187,26 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5), # No aplica si ROTATE_REFRESH_TOKENS=False
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1), # No aplica si ROTATE_REFRESH_TOKENS=False
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),  # No aplica si ROTATE_REFRESH_TOKENS=False
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # No aplica si ROTATE_REFRESH_TOKENS=False
 }
 
-
 # Email Settings (configuradas desde .env)
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend') # Console para debug si no hay .env
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND',
+                          'django.core.mail.backends.console.EmailBackend')  # Console para debug si no hay .env
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'webmaster@localhost')
-RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL') # Para recibir mensajes de contacto
-
+RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL')  # Para recibir mensajes de contacto
 
 # CORS Settings (configuradas desde .env)
 CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALLOW_ALL_ORIGINS', 'False') == 'True'
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if not CORS_ALLOW_ALL_ORIGINS else []
 # Opcional: Si necesitas enviar cookies/auth headers
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 
 # Swagger/Redoc Settings
@@ -217,11 +219,11 @@ SWAGGER_SETTINGS = {
             'description': "JWT Token (Formato: Bearer {token})"
         }
     },
-    'USE_SESSION_AUTH': False, # No usar autenticación de sesión de Django para Swagger
+    'USE_SESSION_AUTH': False,  # No usar autenticación de sesión de Django para Swagger
     'JSON_EDITOR': True,
 }
 REDOC_SETTINGS = {
-   'LAZY_RENDERING': False,
+    'LAZY_RENDERING': False,
 }
 
 # Límite de tiempo para cancelar pedidos (en minutos)

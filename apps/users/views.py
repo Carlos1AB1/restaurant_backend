@@ -28,6 +28,8 @@ class UserRegistrationView(generics.CreateAPIView):
         send_verification_email(user, token)
 
 
+# apps/users/views.py - Modificar la clase VerifyEmailView
+
 class VerifyEmailView(views.APIView):
     permission_classes = [AllowAny]
 
@@ -37,29 +39,43 @@ class VerifyEmailView(views.APIView):
             verification_token = VerificationToken.objects.get(token=token, purpose='VERIFY')
 
             if verification_token.used:
-                 return Response({"error": "Este token ya ha sido utilizado."}, status=status.HTTP_400_BAD_REQUEST)
+                # El token ya ha sido utilizado, pero es válido
+                # Cambio del mensaje para diferenciar este caso
+                return Response({
+                    "message": "Esta cuenta ya está activa.",
+                    "status": "already_verified"
+                }, status=status.HTTP_200_OK)
 
-            # Simplificamos: asumimos validez si se encuentra y no está usado. Podrías añadir chequeo de tiempo aquí.
+            # Simplificamos: asumimos validez si se encuentra y no está usado.
             # if not verification_token.is_valid(): # Si implementas is_valid() con tiempo
             #    return Response({"error": "El token es inválido o ha expirado."}, status=status.HTTP_400_BAD_REQUEST)
 
-
             user = verification_token.user
             if user.is_active:
-                return Response({"message": "Esta cuenta ya está activa."}, status=status.HTTP_200_OK)
+                # El usuario ya está activo, pero el token no se ha marcado como usado
+                verification_token.used = True
+                verification_token.save()
+                return Response({
+                    "message": "Esta cuenta ya está activa.",
+                    "status": "already_verified"
+                }, status=status.HTTP_200_OK)
 
+            # Caso principal: activar la cuenta por primera vez
             user.is_active = True
             user.save()
             verification_token.used = True
             verification_token.save()
 
-            return Response({"message": "Cuenta verificada exitosamente. Ahora puedes iniciar sesión."}, status=status.HTTP_200_OK)
+            return Response({
+                "message": "Cuenta verificada exitosamente. Ahora puedes iniciar sesión.",
+                "status": "verified"
+            }, status=status.HTTP_200_OK)
 
         except VerificationToken.DoesNotExist:
             return Response({"error": "Token de verificación inválido."}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-             print(f"Error en VerifyEmailView: {e}")
-             return Response({"error": "Ocurrió un error durante la verificación."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            print(f"Error en VerifyEmailView: {e}")
+            return Response({"error": "Ocurrió un error durante la verificación."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Usaremos las vistas de SimpleJWT para login y refresh

@@ -10,7 +10,7 @@ from django.utils.html import strip_tags
 def send_verification_email(user, token_obj):
     """Envía el email de verificación al usuario usando plantilla HTML."""
     subject = f"Verifica tu cuenta en {os.getenv('RESTAURANT_NAME', 'Nuestro Restaurante')}"
-    frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+    frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
     verification_url = f"{frontend_url}/verify-email/{token_obj.token}/"
 
     context = {
