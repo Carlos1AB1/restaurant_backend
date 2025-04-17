@@ -23,7 +23,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('admin_atlantis.urls')),
+    # path('', include('admin_atlantis.urls')),
 
     # API Endpoints
     path('api/users/', include('apps.users.urls')),
