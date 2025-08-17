@@ -1,0 +1,14 @@
+django>=5.1.8
+djangorestframework>=3.13
+djangorestframework-simplejwt>=5.0
+mysqlclient>=2.1  # O PyMySQL si prefieres/necesitas
+python-dotenv>=0.20
+django-cors-headers>=3.10
+reportlab>=3.6
+drf-yasg>=1.20 # Para documentación de API (Swagger/Redoc)
+# Opcional: requests (si llamas a una API externa de Chatbot)
+# requests>=2.25
+gunicorn
+psycopg2-binary  # Para bases de datos PostgreSQL
+whitenoise  # Para servir archivos estáticos
+dj-database-url  # Para configurar bases de datos

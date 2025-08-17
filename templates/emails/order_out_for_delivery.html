@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Tu Pedido Está en Camino! - Foodie</title>
+    <style>
+        /* Estilos base */
+        body {
+            font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #F9F7F3;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive;
+            color: #FF6B6B;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header del email */
+        .email-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Tarjeta principal */
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            border: 3px solid #333333;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Sección de estado - Color de pedido en camino */
+        .status-badge {
+            background-color: #4ECDC4; /* Color secundario para "en camino" */
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            border: 2px solid #333333;
+            margin-bottom: 20px;
+        }
+
+        /* Destacado de llegada estimada */
+        .eta-highlight {
+            background-color: #FFD166; /* Color acento */
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #333333;
+            text-align: center;
+            color: #333333;
+            font-weight: bold;
+        }
+
+        .delivery-truck {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* Dirección de entrega */
+        .delivery-address {
+            background-color: #F9F7F3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #FF6B6B;
+        }
+
+        /* Sección de resumen */
+        .order-summary {
+            margin: 20px 0;
+            background-color: #F9F7F3;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            border-bottom: 2px solid #E0E0E0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #333333;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-label {
+            font-weight: bold;
+            color: #666666;
+        }
+
+        .summary-value {
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+
+        /* Mapa para rastreo (opcional) */
+        .tracking-map {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .tracking-map img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 2px solid #333333;
+        }
+
+        .tracking-link {
+            display: inline-block;
+            background-color: #4ECDC4;
+            color: white !important; /* !important para clientes de correo */
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 50px;
+            border: 2px solid #333333;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive;
+        }
+
+        /* Contact info */
+        .contact-info {
+            background-color: #F9F7F3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .contact-info .phone {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #FF6B6B;
+        }
+
+        /* Footer */
+        .email-footer {
+            text-align: center;
+            padding: 20px;
+            color: #666666;
+            font-size: 14px;
+        }
+
+        /* Media query para móviles */
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .summary-row {
+                flex-direction: column;
+            }
+
+            .summary-value {
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="email-header">
+            <img src="https://via.placeholder.com/150x50.png?text=Foodie+Logo" alt="Foodie" class="logo">
+            <h1>¡Tu Pedido Está en Camino!</h1>
+        </div>
+
+        <div class="card">
+            <div class="status-badge">
+                En Reparto
+            </div>
+
+            <p>Hola <strong>{{ user.first_name|default:user.email }}</strong>,</p>
+            <p>¡Prepárate! Tu pedido número <strong>#{{ order.order_number }}</strong> ha salido de nuestro restaurante y está de camino a tu dirección.</p>
+
+            <div class="eta-highlight">
+                <div class="delivery-truck">🚚</div>
+                <p style="margin: 0;">Estimamos que tu pedido llegará pronto</p>
+                <p style="margin: 5px 0 0 0;">¡Ten listo tu apetito!</p>
+            </div>
+
+            <p>El repartidor se dirige a:</p>
+            <div class="delivery-address">
+                <strong>{{ order.delivery_address }}</strong>
+            </div>
+
+            <!-- Si tienes seguimiento en tiempo real, descomenta esta sección -->
+            <!--
+            <div class="tracking-map">
+                <img src="https://via.placeholder.com/500x200.png?text=Seguimiento+de+Entrega" alt="Mapa de seguimiento">
+                <div>
+                    <a href="#" class="tracking-link">Seguir en tiempo real</a>
+                </div>
+            </div>
+            -->
+
+            <div class="contact-info">
+                <p>Si necesitas contactar con nosotros urgentemente sobre la entrega, puedes llamar al:</p>
+                <p class="phone">+34 123 456 789</p>
+            </div>
+
+            <div class="order-summary">
+                <h2 class="summary-title">Recordatorio del Pedido</h2>
+
+                <div class="summary-row">
+                    <div class="summary-label">Número de Pedido:</div>
+                    <div class="summary-value">#{{ order.order_number }}</div>
+                </div>
+
+                <div class="summary-row">
+                    <div class="summary-label">Fecha del Pedido:</div>
+                    <div class="summary-value">{{ order.created_at|date:"d/m/Y H:i" }}</div>
+                </div>
+
+                <div class="summary-row">
+                    <div class="summary-label">Total:</div>
+                    <div class="summary-value">{{ order.total_price }} €</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="email-footer">
+            <p>Gracias por elegir {{ restaurant_name }}. ¡Estamos deseando que disfrutes de tu comida!</p>
+            <p>&copy; {{ current_year|default:'2025' }} Foodie. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>
