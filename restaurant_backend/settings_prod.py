@@ -1,10 +1,17 @@
 # Configuración para producción
 import os
 from .settings import *
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde .env.prod
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'))
 
 # Seguridad
 DEBUG = False
-ALLOWED_HOSTS = ['*']  # Configurar con tu dominio específico
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+
+# Email y contacto
+RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')
 
 # Base de datos para producción (RDS)
 DATABASES = {
