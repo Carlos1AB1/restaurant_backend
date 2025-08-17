@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn instance to serve restaurant_backend
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/var/www/restaurant_backend
+Environment="PATH=/var/www/restaurant_backend/venv/bin"
+ExecStart=/var/www/restaurant_backend/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 restaurant_backend.wsgi:application --env DJANGO_SETTINGS_MODULE=restaurant_backend.settings_prod
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
