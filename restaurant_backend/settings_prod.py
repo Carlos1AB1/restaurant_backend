@@ -17,12 +17,15 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1',
 ]
 
-# Configuración de cookies para CSRF
+# Configuración de cookies para CSRF (basada en la imagen)
+CSRF_COOKIE_NAME = "csrftoken"  # Configuración específica del nombre
+CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"  # Header personalizado para CSRF
 CSRF_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_USE_SESSIONS = False
 CSRF_COOKIE_AGE = 31449600
+CSRF_COOKIE_DOMAIN = None  # Permitir cookies en el dominio actual
 
 # Configuración de sesiones
 SESSION_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
