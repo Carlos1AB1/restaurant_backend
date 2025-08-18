@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'))
 
 # Seguridad
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Permitir DEBUG desde .env
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Configuración CSRF
@@ -25,6 +25,8 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
 CSRF_COOKIE_AGE = 31449600  # 1 año
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 
 # Email y contacto
 RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')
