@@ -10,27 +10,24 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'
 DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Permitir DEBUG desde .env
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-# Configuración CSRF unificada para producción
-# Unificar CSRF_TRUSTED_ORIGINS con esquemas completos (http/https)
-CSRF_TRUSTED_ORIGINS = list(filter(None, [
-    *(os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')),
-    'http://3.17.68.60',
-    'https://3.17.68.60',
-    # Agregar tu dominio de Render cuando lo tengas:
-    # 'https://restaurant-backend-buyt.onrender.com',
-]))
+# Configuración CSRF específica para producción (usar variables de entorno)
+# IMPORTANTE: Django exige esquema (http/https) en cada origen.
+# Ejemplo de variable: CSRF_TRUSTED_ORIGINS="https://api.mi-dominio.com,https://mi-elb.amazonaws.com"
+CSRF_TRUSTED_ORIGINS = [o for o in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if o]
 
-# Las cookies "secure" ya están condicionadas por DEBUG en settings.py
-# No necesitamos redefinirlas aquí para evitar duplicados
+# Configuración de cookies para CSRF y sesión
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_AGE = 31449600
+CSRF_COOKIE_DOMAIN = None
 
-# Configuración adicional para sesiones del Django Admin
-SESSION_COOKIE_NAME = 'sessionid'
-SESSION_COOKIE_AGE = 3600  # 1 hora
-SESSION_SAVE_EVERY_REQUEST = True
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-# Configuración específica para Django Admin
-ADMIN_URL = 'admin/'
+# Cookies "secure" solo si no estamos en DEBUG (HTTPS en prod)
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Email y contacto
 RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')

@@ -61,10 +61,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'restaurant_backend.urls'
 
-# Configuración de autenticación y redirección
-LOGIN_URL = '/admin/login/'
-LOGIN_REDIRECT_URL = '/admin/'
-LOGOUT_REDIRECT_URL = '/admin/login/'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
