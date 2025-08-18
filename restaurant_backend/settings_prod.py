@@ -10,6 +10,19 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'
 DEBUG = False
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
+# Configuración CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'http://3.17.68.60',
+    'http://localhost',
+    'http://127.0.0.1',
+]
+
+# Configuración de cookies
+CSRF_COOKIE_SECURE = False  # True cuando tengas HTTPS
+SESSION_COOKIE_SECURE = False  # True cuando tengas HTTPS
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+
 # Email y contacto
 RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')
 
@@ -48,6 +61,9 @@ SECURE_SSL_REDIRECT = False  # Deshabilitado para testing - habilitar cuando ten
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Headers de seguridad adicionales
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None  # Deshabilitar para evitar advertencias en HTTP
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
