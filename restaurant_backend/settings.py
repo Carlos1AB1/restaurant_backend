@@ -18,7 +18,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-change-me')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost,restaurant-backend-buyt.onrender.com').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost,3.17.68.60').split(',')
 
 # Application definition
 
@@ -137,6 +137,27 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directorio para imágenes de pro
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Seguridad / CSRF
+# Asegura que Django reconozca HTTPS detrás de un proxy (Render, Nginx, etc.)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Orígenes de confianza para CSRF (Django 4+ requiere esquema)
+CSRF_TRUSTED_ORIGINS = list(filter(None, [
+    *(os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')),
+    'http://localhost',
+    'http://127.0.0.1',
+    'https://localhost',
+    'https://127.0.0.1',
+    'http://3.17.68.60',
+    'https://3.17.68.60',
+]))
+
+# Cookies seguras solo en producción (HTTPS)
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Django REST Framework Settings
 REST_FRAMEWORK = {

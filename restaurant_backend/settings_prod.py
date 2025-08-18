@@ -10,25 +10,23 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'
 DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Permitir DEBUG desde .env
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-# Configuración CSRF específica para producción
-CSRF_TRUSTED_ORIGINS = [
-    'http://3.17.68.60',
-    'http://localhost',
-    'http://127.0.0.1',
-]
+# Configuración CSRF específica para producción (usar variables de entorno)
+# IMPORTANTE: Django exige esquema (http/https) en cada origen.
+# Ejemplo de variable: CSRF_TRUSTED_ORIGINS="https://api.mi-dominio.com,https://mi-elb.amazonaws.com"
+CSRF_TRUSTED_ORIGINS = [o for o in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if o]
 
-# Configuración de cookies para CSRF (basada en la imagen)
-CSRF_COOKIE_NAME = "csrftoken"  # Configuración específica del nombre
-CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"  # Header personalizado para CSRF
-CSRF_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
+# Configuración de cookies para CSRF y sesión
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_USE_SESSIONS = False
 CSRF_COOKIE_AGE = 31449600
-CSRF_COOKIE_DOMAIN = None  # Permitir cookies en el dominio actual
+CSRF_COOKIE_DOMAIN = None
 
-# Configuración de sesiones
-SESSION_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
+# Cookies "secure" solo si no estamos en DEBUG (HTTPS en prod)
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Email y contacto
@@ -74,20 +72,10 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None  # Deshabilitar para evitar advertencias en HTTP
 
 # Configuración CORS para producción
-CORS_ALLOW_ALL_ORIGINS = True  # Permitir todos los orígenes temporalmente
+CORS_ALLOW_ALL_ORIGINS = True  # Cambia a False cuando definas dominios exactos
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    'http://3.17.68.60',
-    'http://localhost',
-    'http://127.0.0.1',
-]
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-# CORS para producción
-CORS_ALLOWED_ORIGINS = [
-    "https://tu-dominio-frontend.com",  # Actualizar con tu dominio
-]
+# Si deshabilitas CORS_ALLOW_ALL_ORIGINS, configura CORS_ALLOWED_ORIGINS en .env (coma-separado)
+# Ejemplo: CORS_ALLOWED_ORIGINS="https://app.mi-dominio.com,https://mi-frontend.cloudfront.net"
 
 # Logging
 LOGGING = {
