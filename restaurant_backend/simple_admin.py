@@ -75,8 +75,11 @@ def simple_admin_login(request):
     """
     return HttpResponse(html)
 
-@user_passes_test(lambda u: u.is_staff)
 def simple_admin_dashboard(request):
+    # Verificación manual en lugar de decorator problemático
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/simple-admin/login/')
+    
     categories = Category.objects.all()
     products = Product.objects.all()
     users = User.objects.all()
@@ -152,7 +155,6 @@ def simple_admin_dashboard(request):
     """
     return HttpResponse(html)
 
-@user_passes_test(lambda u: u.is_staff)
 def simple_admin_logout(request):
     logout(request)
     return redirect('/simple-admin/login/')
