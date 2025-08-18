@@ -10,6 +10,7 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'
 DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Permitir DEBUG desde .env
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
+# Sobrescribir middleware para deshabilitar CSRF temporalmente
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
