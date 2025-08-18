@@ -9,8 +9,6 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from apps.users.views import VerifyEmailView
-from .admin_views import admin_csrf_fix
-from .simple_admin import simple_admin_login, simple_admin_dashboard, simple_admin_logout
 
 def home_view(request):
     """Vista de bienvenida que redirige a la documentación de la API"""
@@ -78,14 +76,7 @@ urlpatterns = [
     # Página de inicio
     path('', api_info, name='home'),
     
-    # Admin simple sin CSRF
-    path('simple-admin/login/', simple_admin_login, name='simple_admin_login'),
-    path('simple-admin/dashboard/', simple_admin_dashboard, name='simple_admin_dashboard'),
-    path('simple-admin/logout/', simple_admin_logout, name='simple_admin_logout'),
-    path('simple-admin/', lambda request: redirect('/simple-admin/login/')),
-    
-    # Admin original (con problemas CSRF)
-    path('admin-setup/', admin_csrf_fix, name='admin_csrf_fix'),
+    # Admin original
     path('admin/', admin.site.urls),
     # path('', include('admin_atlantis.urls')),
 
