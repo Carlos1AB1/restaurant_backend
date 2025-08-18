@@ -23,6 +23,15 @@ CSRF_TRUSTED_ORIGINS = list(filter(None, [
 # Las cookies "secure" ya están condicionadas por DEBUG en settings.py
 # No necesitamos redefinirlas aquí para evitar duplicados
 
+# Configuración adicional para sesiones del Django Admin
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_AGE = 3600  # 1 hora
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# Configuración específica para Django Admin
+ADMIN_URL = 'admin/'
+
 # Email y contacto
 RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')
 
