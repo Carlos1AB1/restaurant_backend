@@ -10,23 +10,16 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'
 DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Permitir DEBUG desde .env
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-# Configuración CSRF
-CSRF_TRUSTED_ORIGINS = [
-    'http://3.17.68.60',
-    'http://localhost',
-    'http://127.0.0.1',
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # CORS Middleware
+    'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',  # CSRF deshabilitado temporalmente
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# Configuración de cookies
-CSRF_COOKIE_SECURE = False  # True cuando tengas HTTPS
-SESSION_COOKIE_SECURE = False  # True cuando tengas HTTPS
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_HTTPONLY = False
-CSRF_USE_SESSIONS = False
-CSRF_COOKIE_AGE = 31449600  # 1 año
-CSRF_COOKIE_NAME = 'csrftoken'
-CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 
 # Email y contacto
 RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')
