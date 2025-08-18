@@ -10,6 +10,24 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'
 DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Permitir DEBUG desde .env
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
+# Configuración CSRF específica para producción
+CSRF_TRUSTED_ORIGINS = [
+    'http://3.17.68.60',
+    'http://localhost',
+    'http://127.0.0.1',
+]
+
+# Configuración de cookies para CSRF
+CSRF_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_AGE = 31449600
+
+# Configuración de sesiones
+SESSION_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
+SESSION_COOKIE_SAMESITE = 'Lax'
+
 # Email y contacto
 RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')
 

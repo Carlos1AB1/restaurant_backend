@@ -9,6 +9,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from apps.users.views import VerifyEmailView
+from .admin_views import csrf_token_view, admin_login_fix
 
 def home_view(request):
     """Vista de bienvenida que redirige a la documentación de la API"""
@@ -75,6 +76,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     # Página de inicio
     path('', api_info, name='home'),
+    
+    # Rutas para admin con CSRF fix
+    path('admin-login/', admin_login_fix, name='admin_login_fix'),
+    path('csrf-token/', csrf_token_view, name='csrf_token'),
     
     # Admin original
     path('admin/', admin.site.urls),
