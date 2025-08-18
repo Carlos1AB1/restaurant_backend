@@ -22,6 +22,9 @@ CSRF_COOKIE_SECURE = False  # True cuando tengas HTTPS
 SESSION_COOKIE_SECURE = False  # True cuando tengas HTTPS
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = False
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_AGE = 31449600  # 1 año
 
 # Email y contacto
 RESTAURANT_CONTACT_EMAIL = os.getenv('RESTAURANT_CONTACT_EMAIL', 'admin@restaurant.com')
@@ -64,6 +67,15 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Headers de seguridad adicionales
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None  # Deshabilitar para evitar advertencias en HTTP
+
+# Configuración CORS para producción
+CORS_ALLOW_ALL_ORIGINS = True  # Permitir todos los orígenes temporalmente
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://3.17.68.60',
+    'http://localhost',
+    'http://127.0.0.1',
+]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
