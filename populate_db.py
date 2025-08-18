@@ -12,7 +12,12 @@ from decimal import Decimal
 
 # Configurar Django
 if __name__ == '__main__':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'restaurant_backend.settings')
+    # Verificar si se pasó un argumento --settings
+    settings_module = 'restaurant_backend.settings'
+    for arg in sys.argv:
+        if arg.startswith('--settings='):
+            settings_module = arg.split('=')[1]
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     django.setup()
 
 from django.contrib.auth import get_user_model
