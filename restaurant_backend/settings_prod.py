@@ -10,23 +10,18 @@ load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.prod'
 DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Permitir DEBUG desde .env
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-# Configuración CSRF específica para producción (usar variables de entorno)
-# IMPORTANTE: Django exige esquema (http/https) en cada origen.
-# Ejemplo de variable: CSRF_TRUSTED_ORIGINS="https://api.mi-dominio.com,https://mi-elb.amazonaws.com"
-CSRF_TRUSTED_ORIGINS = [o for o in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if o]
-
-# Configuración de cookies para CSRF y sesión
-CSRF_COOKIE_NAME = "csrftoken"
-CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
+# Configuración de cookies para CSRF (basada en la imagen)
+CSRF_COOKIE_NAME = "csrftoken"  # Configuración específica del nombre
+CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"  # Header personalizado para CSRF
+CSRF_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_USE_SESSIONS = False
 CSRF_COOKIE_AGE = 31449600
-CSRF_COOKIE_DOMAIN = None
+CSRF_COOKIE_DOMAIN = None  # Permitir cookies en el dominio actual
 
-# Cookies "secure" solo si no estamos en DEBUG (HTTPS en prod)
-CSRF_COOKIE_SECURE = not DEBUG
-SESSION_COOKIE_SECURE = not DEBUG
+# Configuración de sesiones
+SESSION_COOKIE_SECURE = False  # False para HTTP, True para HTTPS
 SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Email y contacto
@@ -72,10 +67,25 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None  # Deshabilitar para evitar advertencias en HTTP
 
 # Configuración CORS para producción
-CORS_ALLOW_ALL_ORIGINS = True  # Cambia a False cuando definas dominios exactos
+CORS_ALLOW_ALL_ORIGINS = False  # Cambiar a False para mayor seguridad
 CORS_ALLOW_CREDENTIALS = True
-# Si deshabilitas CORS_ALLOW_ALL_ORIGINS, configura CORS_ALLOWED_ORIGINS en .env (coma-separado)
-# Ejemplo: CORS_ALLOWED_ORIGINS="https://app.mi-dominio.com,https://mi-frontend.cloudfront.net"
+CORS_ALLOWED_ORIGINS = [
+    'http://3.17.68.60',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://restaurant-frontend-carlos.s3-website.us-east-2.amazonaws.com',
+    'https://d2kcxk4q96tui9.cloudfront.net',
+]
+
+# Configuración CSRF específica para producción
+CSRF_TRUSTED_ORIGINS = [
+    'http://3.17.68.60',
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://restaurant-frontend-carlos.s3-website.us-east-2.amazonaws.com',
+    'https://d2kcxk4q96tui9.cloudfront.net',
+]
+
 
 # Logging
 LOGGING = {

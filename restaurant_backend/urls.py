@@ -48,11 +48,6 @@ def api_info(request):
             <div class="endpoint"><strong>POST /api/users/register/</strong> - Registrar usuario</div>
             <div class="endpoint"><strong>POST /api/users/login/</strong> - Iniciar sesión</div>
             <div class="endpoint"><strong>GET /api/orders/</strong> - Listar pedidos (autenticado)</div>
-            
-            <p style="text-align: center; margin-top: 30px; color: #666;">
-                💾 Base de datos poblada con datos de prueba.<br>
-                👤 Admin: admin@restaurant.com (contraseña: admin123)
-            </p>
         </div>
     </body>
     </html>
